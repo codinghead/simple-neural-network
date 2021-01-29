@@ -1,27 +1,36 @@
+/*
+ * This code trains a neural network to implement the AND function.
+ * It visualises the network. The weights between the node are shown
+ * in colour (black +ve; brown -ve) and thickness (thin low value;
+ * thick high value).
+ */
 Neural network;
 PFont textFont;
 
 PrintWriter errorOutput;
 
-float[] errorGraph = new float[20000];
-int errorGraphCount = 0;
-
 int learnAnd = 0;
+float averageError = 100.0;
+float[] averageErrorArray;
+int averageErrorPointer = 0;
 
 void setup() {
   size(640, 480);
   
+  // Output total network error occaisionally to a CSV file.
   errorOutput = createWriter("and-error.csv"); 
   
   textFont = loadFont("Calibri-48.vlw");
-  //frameRate(30);
   
+  // We'll use two inputs, four hidden nodes, and one output node.
   network = new Neural(2,4,1);
   
+  // Set learning rate here
   network.setLearningRate(0.45);
   
   println(network.getNoOfInputNodes(), " ", network.getNoOfHiddenNodes(), " ", network.getNoOfOutputNodes());
   
+  // Set network biasing here
   network.setBiasInputToHidden(0.25);
   network.setBiasHiddenToOutput(0.3);
   
@@ -31,8 +40,10 @@ void setup() {
   
   network.turnLearningOn();
   
-  for (int loop = 0; loop < 20000; ++loop) {
-    errorGraph[loop] = 0.0;
+  // Set up average error array
+  averageErrorArray = new float [4];
+  for (int x = 0; x < 4; ++x) {
+    averageErrorArray[x] = 100.0;
   }
 }
 
@@ -41,7 +52,8 @@ void draw() {
   
   if (network.getLearningStatus()) {
     // If we are learning and have achieved < 40000 cycles...
-    if (network.getEpoch() > 30000) {
+    //if (network.getEpoch() > 30000) {
+    if (averageError < 0.0005) {
       network.turnLearningOff();
       // Close file
       errorOutput.flush(); // Writes the remaining data to the file
@@ -68,31 +80,39 @@ void draw() {
       network.setOutputNodeDesired(0, 0.99);
     }
     
+    // Calculate the output for the inputs given
     network.calculateOutput();
     
-    //print(network.getEpoch());
-    //print(" : ");
-    //print(learnAnd);
-    //print(" : ");
-    //println(network.getTotalNetworkError());
+    // Calculate average error
+    averageErrorArray[averageErrorPointer] = network.getTotalNetworkError();
+    averageError = (averageErrorArray[0] + averageErrorArray[1] + averageErrorArray[1] + averageErrorArray[3]) / 4.0;
+    ++averageErrorPointer;
+    if (averageErrorPointer >= 4) {
+       averageErrorPointer = 0; 
+    }
     
-    if ((network.getEpoch() % 50) == 0) {
+    if ((network.getEpoch() % 50) == 0){
       print(network.getEpoch());
       print(",");
-      println(network.getTotalNetworkError());
+      print(network.getTotalNetworkError());
+      print(",");
+      println(averageError);
       
       // Write to file
       errorOutput.print(network.getEpoch());
       errorOutput.print(",");
-      errorOutput.println(network.getTotalNetworkError());
+      errorOutput.print(network.getTotalNetworkError());
+      errorOutput.print(",");
+      errorOutput.println(averageError);
       errorOutput.flush();
     }
-    // Output current error
+    
+    // Output current error to main output
     {
       float strError;
       
       textAlign(LEFT, CENTER);
-      strError = network.getTotalNetworkError() * 100.0;
+      strError = averageError * 100.0;
       textSize(24);
       text("Error: " + nf(strError,2,4) + "%", 40, 460);
       
@@ -108,7 +128,7 @@ void draw() {
       learnAnd = 0;
     }
   } else {
-    // Switch between differnt AND input patterns
+    // Switch between differnt AND input patterns to show result of learning
     
     // Set up AND inputs
     if (learnAnd == 0) {
@@ -137,6 +157,8 @@ void draw() {
     }
   }
 
+  // What follows outputs the rest of the display including heading,
+  // depiction of nodes, and the weights as lines.
   // Heading
   textFont(textFont);
   if (network.getLearningStatus()) {

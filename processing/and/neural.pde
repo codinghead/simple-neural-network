@@ -1,3 +1,14 @@
+/*
+ * Neural class for Processing
+ * Stuart Cording aka codinghead
+ *
+ * This code implements a simple neural network as a multilayer perceptron (MLP).
+ * It supports an input layer, single hidden layer, and output layer.
+ * The number of nodes in each layer can be defined by the user.
+ * The code was developed based upon the post "A Step by Step Backpropgation 
+ * Example" by Matt Mazur:
+ * https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/
+ */
 class Neural {
     private float[] inputNodeValues;
     private float[] hiddenNodeValues;
@@ -56,7 +67,11 @@ class Neural {
       hiddenNodeValues[x] = 0.0;
     }
 
-    // Create the desired number of output and desired output nodes and set them to zero
+    // Create the desired number of output and desired output nodes and 
+    // set them to zero
+    // Note: outputNodeValues stores the output of the MLP. The 
+    //       desiredOutputNodeValues are the values we want to 
+    //       achieve for the given input values.
     outputNodeValues = new float [outputs];
     desiredOutputNodeValues = new float [outputs];
     for (int x = 0; x < outputs; ++x) {
@@ -64,8 +79,9 @@ class Neural {
       desiredOutputNodeValues[x] = 0.0;
     }
 
-    // For each input node, create both old and new weights
+    // For each input node, create both current and new weights
     // for each hidden node
+    // Note: The new weights are used during learning
     inputToHiddenWeights = new float [inputs][hidden];
     newInputToHiddenWeights = new float [inputs][hidden];
     
@@ -78,8 +94,9 @@ class Neural {
       }
     }
     
-    // For each hidden node, create both old and new weights
+    // For each hidden node, create both current and new weights
     // for each output node
+    // Note: The new weights are used during learning
     hiddenToOutputWeights = new float [hidden][outputs];
     newHiddenToOutputWeights = new float [hidden][outputs];
     
@@ -94,7 +111,7 @@ class Neural {
   }
   
   /* calculateOuput()
-   * Uses the weights of the network to calculate new output.
+   * Uses the weights of the MLP to calculate new output.
    * Requires that user has defined their desired input values
    * and trained the network.
    */
@@ -105,6 +122,7 @@ class Neural {
     // For each hidden node Hn:
     //   Hn = sigmoid (wn * in + w(n+1) * i(n+1) ... + Hbias * 1)
     for (int x = 0; x < getNoOfHiddenNodes(); ++x) {
+      // Start by calculating (wn * in + w(n+1) * i(n+1) ...
       for (int y = 0; y < getNoOfInputNodes(); ++y) {
         // Sum the results for the weight * input for each input node
         tempResult += inputNodeValues[y] * inputToHiddenWeights[y][x];
@@ -129,10 +147,11 @@ class Neural {
       tempResult = 0.0;
     }
     
-    // Next calculating the output layer node results for each hidden node
+    // Next calculate the output layer node results for each hidden node
     // For each output node On:
     //   On = sigmoid (wn * Hn + w(n+1) * Hn(n+1) ... + Obias * 1)
     for (int x = 0; x < getNoOfOutputNodes(); ++x) {
+      // Start by calulating (wn * Hn + w(n+1) * Hn(n+1) ...
       for (int y = 0; y < getNoOfHiddenNodes(); ++y) {
         
         tempResult += hiddenNodeValues[y] * hiddenToOutputWeights[y][x];
@@ -160,8 +179,6 @@ class Neural {
     // Calculate total error
     // ERRORtotal = SUM 0.5 * (target - output)^2
     for (int x = 0; x < getNoOfOutputNodes(); ++x) {
-      //tempResult += 0.5 * ((desiredOutputNodeValues[x] - outputNodeValues[x]) * 
-      //                      (desiredOutputNodeValues[x] - outputNodeValues[x]));
       tempResult += 0.5 * sq(desiredOutputNodeValues[x] - outputNodeValues[x]);
       if (verbose) {
         print("Error o[", x, "]:", tempResult);
@@ -196,8 +213,7 @@ class Neural {
     float outputChangeWRTNetInput = 0.0;
     float netInputChangeWRTWeight = 0.0;
     float errorTotalWRTHiddenNode = 0.0;
-    //int x = 0;
-    
+        
     // Increment epoch
     ++learningEpoch;
     
@@ -236,26 +252,6 @@ class Neural {
           println("New Weight [", y, x, "] =", newHiddenToOutputWeights[y][x], ", Old Weight =", hiddenToOutputWeights[y][x]);
         }
       }
-      
-      // Calculate new input-to-hidden weights
-      
-//      for (int i = 0; i < getNoOfHiddenNodes(); ++i) {
-//        errorTotalWRTHiddenNode = 0.0;
-//        
-//        for (int j = 0; j < getNoOfOutputNodes(); ++j) {
-//          // First calculate total error of hidden node with respect to the output nodes and hidden-to-output weights
-//          errorTotalWRTHiddenNode += totalErrorChangeWRTOutput * outputChangeWRTNetInput * hiddenToOutputWeights[i][j];
-//          
-//          if (verbose) {
-//            println("Error WRT Hidden Node [", i,"] is", errorTotalWRTHiddenNode);
-//          }
-//        }
-//      }
-      
-      
-      
-      
-      
     }
     
     // Consider the hidden layer (based upon original weights)
@@ -360,8 +356,8 @@ class Neural {
     return biasHiddenToOutput;
   }
   
-  void setLearningRate(float bias) {
-    learningRate = bias;
+  void setLearningRate(float rate) {
+    learningRate = rate;
   }
   
   float getLearningRate() {
@@ -426,8 +422,6 @@ class Neural {
   
   void turnLearningOn() {
     learning = true;
-    // Also reset learning epoch
-    learningEpoch = 0;
   }
   
   void turnLearningOff() {
@@ -494,8 +488,4 @@ class Neural {
 
 float sigmoid(float x) {
   return (1 / (1 + exp(-x)));
-}
-
-float derivativeSigmoid(float x) {
-  return (sigmoid(x) * (1 - sigmoid(x)));
 }

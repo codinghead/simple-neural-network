@@ -79,7 +79,7 @@ void setup() {
   println("o1 = ", network.getOutputNode(0), " (but we want: ", network.getOutputNodeDesired(0), ")");
   println("o2 = ", network.getOutputNode(1), " (but we want: ", network.getOutputNodeDesired(1), ")");
   println();
-  println("Total network error is: ", network.getTotalNetworkError(), "(", network.getTotalNetworkError()*100.0,"%)");
+  println("Total network error is: ", network.getTotalNetworkError());
   println();
   
   // Now we'll perform a learning cycle using backpropagation
@@ -102,7 +102,7 @@ void setup() {
   println("o1 = ", network.getOutputNode(0), " (but we want: ", network.getOutputNodeDesired(0), ")");
   println("o2 = ", network.getOutputNode(1), " (but we want: ", network.getOutputNodeDesired(1), ")");
   println();
-  println("Total network error is: ", network.getTotalNetworkError(), "(", network.getTotalNetworkError()*100.0,"%)");
+  println("Total network error is: ", network.getTotalNetworkError());
   println();
 }
 

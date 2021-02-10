@@ -266,7 +266,7 @@ class Neural {
                 
         if (verbose) {
           println("Calculating", hiddenToOutputWeights[y][x], "-", learningRate, "*", weightChange);
-          println("New Weight [", y, x, "] =", newHiddenToOutputWeights[y][x], ", Old Weight =", hiddenToOutputWeights[y][x]);
+          println("New Hidden-To-Ouput Weight [", y, x, "] =", newHiddenToOutputWeights[y][x], ", Old Weight =", hiddenToOutputWeights[y][x]);
           println();
         }
       }
@@ -334,7 +334,7 @@ class Neural {
             
             if (verbose) {
                 println("inputToHiddenWeights[", y, "][", x, "] =", inputToHiddenWeights[y][x]);
-                println("newInputToHiddenWeights[", y, "][", x, "] =", newInputToHiddenWeights[y][x]);
+                println("New Input-To-Hidden Weight[", y, "][", x, "] =", newInputToHiddenWeights[y][x], "Old Weight =", inputToHiddenWeights[y][x]);
                 println();
             }
         }

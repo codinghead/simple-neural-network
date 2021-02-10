@@ -122,6 +122,9 @@ class Neural {
     // For each hidden node Hn:
     //   Hn = sigmoid (wn * in + w(n+1) * i(n+1) ... + Hbias * 1)
     for (int x = 0; x < getNoOfHiddenNodes(); ++x) {
+      if (verbose) {
+          println("Input-to-hidden to calculate hidden node output:");
+      }
       // Start by calculating (wn * in + w(n+1) * i(n+1) ...
       for (int y = 0; y < getNoOfInputNodes(); ++y) {
         // Sum the results for the weight * input for each input node
@@ -140,7 +143,9 @@ class Neural {
       // Squash result using sigmoid of sum 
       hiddenNodeValues[x] = sigmoid(tempResult);
       if (verbose) {
+        println("Output of hidden node:");
         println("Sigmoid:", hiddenNodeValues[x]);
+        println();
       }
       
       // Reset sumation variable for next round
@@ -151,6 +156,9 @@ class Neural {
     // For each output node On:
     //   On = sigmoid (wn * Hn + w(n+1) * Hn(n+1) ... + Obias * 1)
     for (int x = 0; x < getNoOfOutputNodes(); ++x) {
+      if (verbose) {
+          println("Hidden-to-output to calculate output node result:");
+      }
       // Start by calulating (wn * Hn + w(n+1) * Hn(n+1) ...
       for (int y = 0; y < getNoOfHiddenNodes(); ++y) {
         
@@ -169,7 +177,9 @@ class Neural {
       // Result goes into the output node
       outputNodeValues[x] = sigmoid(tempResult);
       if (verbose) {
+        println("Result for output node:");
         println("Sigmoid:", outputNodeValues[x]);
+        println();
       }
       
       // Reset sumation variable for next round
@@ -181,25 +191,30 @@ class Neural {
     for (int x = 0; x < getNoOfOutputNodes(); ++x) {
       tempResult += 0.5 * sq(desiredOutputNodeValues[x] - outputNodeValues[x]);
       if (verbose) {
+        println("Determine error between output and desired output values:");
         print("Error o[", x, "]:", tempResult);
         println(" : 0.5 * (", desiredOutputNodeValues[x], "-", outputNodeValues[x],")^2");           
-        
+        println();
       }
     }
     
     if (verbose) {
       println("Total Error: ", tempResult);
+      println();
     }
     
     totalNetworkError = tempResult;
     
     if (learning) {
       if (verbose) {
+        println();
         println(">>> Executing learning loop...");
       }
       backPropagation();
       if (verbose) {
+        println();
         println(">>> Learning loop complete. Epoch = ", learningEpoch);
+        println();
       }
     }
   }
@@ -220,6 +235,7 @@ class Neural {
     // Consider the output layer to calculate new weights for hidden-to-output layer
     //   newWeightN = wn - learningRate * (ErrorTotal / impactOfwn)
     if (verbose) {
+      println();
       println("Hidden to Output Weight Correction:");
     }
     for (int x = 0; x < getNoOfOutputNodes(); ++x) {
@@ -232,6 +248,7 @@ class Neural {
       outputChangeWRTNetInput = outputNodeValues[x] * (1 - outputNodeValues[x]);
       if (verbose) {
         println("outputChangeWRTNetInput [", x,"] =", outputChangeWRTNetInput);
+        println();
       }
       
       for (int y = 0; y < getNoOfHiddenNodes(); ++y) {
@@ -249,7 +266,8 @@ class Neural {
                 
         if (verbose) {
           println("Calculating", hiddenToOutputWeights[y][x], "-", learningRate, "*", weightChange);
-          println("New Weight [", y, x, "] =", newHiddenToOutputWeights[y][x], ", Old Weight =", hiddenToOutputWeights[y][x]);
+          println("New Hidden-To-Ouput Weight [", y, x, "] =", newHiddenToOutputWeights[y][x], ", Old Weight =", hiddenToOutputWeights[y][x]);
+          println();
         }
       }
     }
@@ -270,6 +288,11 @@ class Neural {
         float totalErrorChangeWRTweight = 0.0;
         
         for (int y = 0; y < getNoOfOutputNodes(); ++ y) {
+            if (verbose) {
+              println();
+              println("Calculating hidden node ", x," for output ", y);
+            }
+            
             // totalErrorChangeWRTOutput
             totalErrorChangeWRTOutput = -(desiredOutputNodeValues[y] -  outputNodeValues[y]);
             if (verbose) {
@@ -286,16 +309,15 @@ class Neural {
             
             if (verbose) {
                 println("totalErrorChangeWRTHidden[", x, "] =", totalErrorChangeWRTHidden);
+                println();
             }
         }
         
         outputHiddenWRTnetHidden = (hiddenNodeValues[x]) * (1 - hiddenNodeValues[x]);
         
         if (verbose) {
+            println();
             println("hiddenNodeValues[", x, "] =", hiddenNodeValues[x]);
-        }
-        
-        if (verbose) {
             println("outputHiddenWRTnetHidden[", x, "] =", outputHiddenWRTnetHidden);
         }
         
@@ -304,10 +326,7 @@ class Neural {
             totalErrorChangeWRTweight = totalErrorChangeWRTHidden * outputHiddenWRTnetHidden * inputNodeValues[y];
             
             if (verbose) {
-                println("inputNodeValues[", x, "] =", inputNodeValues[x]);
-            }
-            
-            if (verbose) {
+                println("inputNodeValues[", y, "] =", inputNodeValues[y]);
                 println("totalErrorChangeWRTweight[", x, "] =", totalErrorChangeWRTweight);
             }
             
@@ -315,7 +334,8 @@ class Neural {
             
             if (verbose) {
                 println("inputToHiddenWeights[", y, "][", x, "] =", inputToHiddenWeights[y][x]);
-                println("newInputToHiddenWeights[", y, "][", x, "] =", newInputToHiddenWeights[y][x]);
+                println("New Input-To-Hidden Weight[", y, "][", x, "] =", newInputToHiddenWeights[y][x], "Old Weight =", inputToHiddenWeights[y][x]);
+                println();
             }
         }
     }

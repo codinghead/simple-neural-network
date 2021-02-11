@@ -18,12 +18,12 @@ void setup() {
   
   network = new Neural(2,4,1);
   
-  network.setLearningRate(0.45);
+  network.setLearningRate(0.1);
   
   println(network.getNoOfInputNodes(), " ", network.getNoOfHiddenNodes(), " ", network.getNoOfOutputNodes());
   
-  network.setBiasInputToHidden(0.25);
-  network.setBiasHiddenToOutput(0.3);
+  network.setBiasInputToHidden(0.3);
+  network.setBiasHiddenToOutput(0.6);
   
   network.displayOutputNodes();
   

@@ -70,15 +70,15 @@ void draw() {
     } else if (learnXor == 1) {
       network.setInputNode(0, 0.01);
       network.setInputNode(1, 0.99);
-      network.setOutputNodeDesired(0, 0.01);
+      network.setOutputNodeDesired(0, 0.99);
     } else if (learnXor == 2) {
       network.setInputNode(0, 0.99);
       network.setInputNode(1, 0.01);
-      network.setOutputNodeDesired(0, 0.01);
+      network.setOutputNodeDesired(0, 0.99);
     } else { // learnXor == 3
       network.setInputNode(0, 0.99);
       network.setInputNode(1, 0.99);
-      network.setOutputNodeDesired(0, 0.99);
+      network.setOutputNodeDesired(0, 0.01);
     }
     
     // Calculate the output for the inputs given

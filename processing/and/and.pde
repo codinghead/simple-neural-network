@@ -26,7 +26,7 @@ void setup() {
   network = new Neural(2,4,1);
   
   // Set learning rate here
-  network.setLearningRate(0.45);
+  network.setLearningRate(0.5);
   
   println(network.getNoOfInputNodes(), " ", network.getNoOfHiddenNodes(), " ", network.getNoOfOutputNodes());
   
@@ -51,8 +51,9 @@ void draw() {
   background(180);
   
   if (network.getLearningStatus()) {
-    // If we are learning and have achieved < 40000 cycles...
-    //if (network.getEpoch() > 30000) {
+    // Replace line 57 with line 55 to stop learning after a certain number of epochs
+    // if (network.getEpoch() > 12000) {
+    // If we are learning and have achieved better than 0.05% error...
     if (averageError < 0.0005) {
       network.turnLearningOff();
       // Close file
@@ -61,7 +62,7 @@ void draw() {
       frameRate(0.5);
     }
     
-    // Set up AND inputs
+    // Set up AND inputs and expected output
     if (learnAnd == 0) {
       network.setInputNode(0, 0.01);
       network.setInputNode(1, 0.01);
@@ -114,7 +115,7 @@ void draw() {
       textAlign(LEFT, CENTER);
       strError = averageError * 100.0;
       textSize(24);
-      text("Error: " + nf(strError,2,4) + "%", 40, 460);
+      text("Total Network Error: " + nf(strError,2,4) + "%", 40, 460);
       
       strokeWeight(10);
       stroke(0);

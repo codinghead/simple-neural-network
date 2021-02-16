@@ -18,7 +18,7 @@ int b;
 
 void setup() {
   size(1280, 480);
-  
+  // Replace the following line with the result from 'findcamera.pde'
   cam = new Capture(this, 640, 480, "Logitech Webcam 500", 30);
   
   println("Starting capture");
@@ -71,16 +71,16 @@ void draw() {
 
   // This averages the color of all pixels seen in the red square
   for (int i = ((480 / 2) - 5); i <= ((480 / 2) + 5); ++i) {
-      for (int j = ((640 / 2) - 5); j <= ((640 / 2) + 5); ++j) {
-        ++loopCount;
-        
-        int wantedPixel = (640 * i) + j - 1;
-        
-        int pixelcolour = cam.pixels[wantedPixel];
-        averageR += (pixelcolour >> 16) & 0xff;
-        averageG += (pixelcolour >> 8) & 0xff;
-        averageB += pixelcolour & 0xff;
-      }
+    for (int j = ((640 / 2) - 5); j <= ((640 / 2) + 5); ++j) {
+      ++loopCount;
+      
+      int wantedPixel = (640 * i) + j - 1;
+      
+      int pixelcolour = cam.pixels[wantedPixel];
+      averageR += (pixelcolour >> 16) & 0xff;
+      averageG += (pixelcolour >> 8) & 0xff;
+      averageB += pixelcolour & 0xff;
+    }
   }
   
   r = averageR / loopCount;

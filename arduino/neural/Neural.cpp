@@ -11,10 +11,6 @@ static double sigmoid(double x) {
   return (1 / (1 + exp(-x)));
 }
 
-static double derivativeSigmoid(double x) {
-  return (sigmoid(x) * (1 - sigmoid(x)));
-}
-
 Neural::Neural(int inputs, int hidden, int outputs)
 {
     // Set all variables to zero to start that don't have to be defined here

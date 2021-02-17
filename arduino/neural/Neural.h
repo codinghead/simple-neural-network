@@ -41,21 +41,21 @@ class Neural
         void    calculateOutput();
         
         void    setLearningRate(double bias);
-        double   getLearningRate();
+        double  getLearningRate();
         void    setBiasInputToHidden(double bias);
-        double   getBiasInputToHidden();
+        double  getBiasInputToHidden();
         void    setBiasHiddenToOutput(double bias);
-        double   getBiasHiddenToOutput();
+        double  getBiasHiddenToOutput();
         void    turnLearningOn();
         void    turnLearningOff();
         void    setInputNode(int node, double value);
-        double   getInputNode(int node);
+        double  getInputNode(int node);
         void    setOutputNodeDesired(int node, double value);
-        double   getOutputNodeDesired(int node);
+        double  getOutputNodeDesired(int node);
         int     getNoOfInputNodes();
         int     getNoOfHiddenNodes();
         int     getNoOfOutputNodes();
-        double   getOutputNode(int node);
+        double  getOutputNode(int node);
         void    displayInputToHiddenWeightsCurrent();
         void    displayHiddenToOutputWeightsCurrent();
         void    turnVerboseOn();
@@ -70,17 +70,6 @@ class Neural
         void    displayInputNodes();
         void    displayHiddenNodes();
         void    displayOutputNodes();
-
-/*
-
-
-void seed(int x) {
-randomSeed(x);
-}
-
-
-*/
-
 };
 
 #endif

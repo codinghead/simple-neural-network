@@ -22,21 +22,18 @@ void setup() {
     Serial.println("and then press reset button.");
     while (1); // halt!
   }
+
+  digitalWrite(ledpin, HIGH);  // turn on LED
 }
 
 void loop() {
   float red, green, blue;
-  
-  //digitalWrite(ledpin, HIGH);  // turn on LED
-
+    
   delay(60);  // takes 50ms to read
 
   tcs.getRGB(&red, &green, &blue);
   
-  //digitalWrite(ledpin, LOW);  // turn off LED
-
   Serial.print("R:\t"); Serial.print(int(red)); 
   Serial.print("\tG:\t"); Serial.print(int(green)); 
-  Serial.print("\tB:\t"); Serial.print(int(blue));
-  Serial.println();
+  Serial.println("\tB:\t"); Serial.print(int(blue));
 }

@@ -51,16 +51,16 @@ void setup() {
   network.turnLearningOn();
   println("Neural network is learning...");
   
-  for (int loop = 0; loop < 30000; ++loop) {
+  for (int loop = 0; loop < 90000; ++loop) {
     
-    teachRed(159, 65, 37);
-    teachAmber(213, 141, 40);
-    teachGreen(128, 152, 130);
+    teachRed(220, 56, 8);
+    teachAmber(216, 130, 11);
+    teachGreen(123, 150, 128);
     
-    teachOther(47, 46, 24);
-    teachOther(147, 160, 155);
-    teachOther(192, 184, 132);
-    teachOther(129, 151, 154);
+    //teachOther(163, 160, 121);
+    teachOther(76, 72, 35);
+    teachOther(175, 167, 138);
+    teachOther(152, 167, 161);
     
   }
 

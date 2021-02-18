@@ -53,13 +53,13 @@ void setup() {
   
   for (int loop = 0; loop < 30000; ++loop) {
     
-    teachRed(142, 59, 63);
-    teachAmber(115, 79, 62);
-    teachGreen(58, 102, 91);
+    teachRed(149, 56, 61);
+    teachAmber(123, 77, 61);
+    teachGreen(67, 100, 90);
     
-    //teachOther(163, 160, 121);
-    //teachOther(76, 72, 35);
-    //teachOther(175, 167, 138);
+    //teachOther(92, 90, 82);
+    //teachOther(92, 90, 75);
+    //teachOther(73, 93, 89);
     //teachOther(152, 167, 161);
 
     if (!(loop % 1000)) {

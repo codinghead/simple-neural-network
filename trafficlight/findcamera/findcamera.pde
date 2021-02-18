@@ -41,7 +41,7 @@ void keyPressed() {
   // correct camera for traffic line example
   if (key >= '0' && key <= '9') {
     cameraIndex = key - '0';
-    println("Code for line 22:");
+    println("Code for line 22 (computer_vision) and line 30 (tlight_detect):");
     String chosenCamera = "  cam = new Capture(this, 640, 480,\""+Capture.list()[cameraIndex]+"\", 30);";
     println(chosenCamera);
   }

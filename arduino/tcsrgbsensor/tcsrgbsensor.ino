@@ -35,5 +35,5 @@ void loop() {
   
   Serial.print("R:\t"); Serial.print(int(red)); 
   Serial.print("\tG:\t"); Serial.print(int(green)); 
-  Serial.println("\tB:\t"); Serial.print(int(blue));
+  Serial.print("\tB:\t"); Serial.println(int(blue));
 }

@@ -256,11 +256,9 @@ void dashedCircle(float radius, int dashWidth, int dashSpacing) {
 void teachRed(int r, int g, int b) {
   float newR, newG, newB;
   
-  r += random(-4, 4);
-  
-  newR = (r / 255.0);
-  newG = (g / 255.0);
-  newB = (b / 255.0);
+  newR = (randomise(r) / 255.0);
+  newG = (randomise(g) / 255.0);
+  newB = (randomise(b) / 255.0);
   
   //println("Red:", newR, newG, newB);
   
@@ -279,9 +277,9 @@ void teachRed(int r, int g, int b) {
 void teachAmber(int r, int g, int b) {
   float newR, newG, newB;
 
-  newR = (r / 255.0);
-  newG = (g / 255.0);
-  newB = (b / 255.0);
+  newR = (randomise(r) / 255.0);
+  newG = (randomise(g) / 255.0);
+  newB = (randomise(b) / 255.0);
   
   //println("Amber:", newR, newG, newB);
   
@@ -300,9 +298,9 @@ void teachAmber(int r, int g, int b) {
 void teachGreen(int r, int g, int b) {
   float newR, newG, newB;
   
-  newR = (r / 255.0);
-  newG = (g / 255.0);
-  newB = (b / 255.0);
+  newR = (randomise(r) / 255.0);
+  newG = (randomise(g) / 255.0);
+  newB = (randomise(b) / 255.0);
   
   network.setInputNode(0, newR);
   network.setInputNode(1, newG);
@@ -319,9 +317,9 @@ void teachGreen(int r, int g, int b) {
 void teachOther(int r, int g, int b) {
   float newR, newG, newB;
   
-  newR = (r / 255.0);
-  newG = (g / 255.0);
-  newB = (b / 255.0);
+  newR = (randomise(r) / 255.0);
+  newG = (randomise(g) / 255.0);
+  newB = (randomise(b) / 255.0);
   
   network.setInputNode(0, newR);
   network.setInputNode(1, newG);
@@ -335,27 +333,14 @@ void teachOther(int r, int g, int b) {
   network.calculateOutput();
 }
 
-void randomise(int r, int g, int b) {
-  r += random(-4, 4);
-  g += random(-4, 4);
-  b += random(-4, 4);
-  
-  if (r > 255) {
-    r = 255;
+int randomise(int value) {
+  value += random(-4, 4);
+
+  if (value > 255) {
+    value = 255;
   }
-  if (r < 0 ) {
-    r = 0;
+  if (value < 0 ) {
+    value = 0;
   }
-  if (g > 255) {
-    g = 255;
-  }
-  if (g < 0 ) {
-    g = 0;
-  }
-  if (b > 255) {
-    b = 255;
-  }
-  if (b < 0 ) {
-    b = 0;
-  }
+  return value;
 }

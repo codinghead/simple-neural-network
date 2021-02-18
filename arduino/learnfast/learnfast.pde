@@ -36,14 +36,14 @@ void setup() {
   for (int loop = 0; loop < 90000; ++loop) {
 
     // Enter your RGB values here
-    teachRed(220, 56, 8);
-    teachAmber(216, 130, 11);
-    teachGreen(123, 150, 128);
+    teachRed(149, 56, 61);
+    teachAmber(123, 77, 61);
+    teachGreen(67, 100, 90);
     
-    //teachOther(163, 160, 121);
-    teachOther(76, 72, 35);
-    teachOther(175, 167, 138);
-    teachOther(152, 167, 161);
+    teachOther(92, 90, 82);
+    teachOther(92, 90, 75);
+    teachOther(73, 93, 89);
+    //teachOther(152, 167, 161);
     
   }
 

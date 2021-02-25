@@ -53,14 +53,14 @@ void setup() {
   
   for (int loop = 0; loop < 90000; ++loop) {
     
-    teachRed(220, 56, 8);
-    teachAmber(216, 130, 11);
-    teachGreen(123, 150, 128);
+    //teachRed(220, 56, 8);
+    //teachAmber(216, 130, 11);
+    //teachGreen(123, 150, 128);
     
     //teachOther(163, 160, 121);
-    teachOther(76, 72, 35);
-    teachOther(175, 167, 138);
-    teachOther(152, 167, 161);
+    //teachOther(76, 72, 35);
+    //teachOther(175, 167, 138);
+    //teachOther(152, 167, 161);
     
   }
 
@@ -334,7 +334,7 @@ void teachOther(int r, int g, int b) {
 }
 
 int randomise(int value) {
-  value += random(-4, 4);
+  value += random(-4, 5);
 
   if (value > 255) {
     value = 255;

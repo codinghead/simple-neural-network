@@ -3,6 +3,12 @@ Collection of PC and Arduino Neural Network Applications.
 
 The code provided here is a simple multilayer perceptron (MLP) neural network implementation coded from scratch and based upon an article by Matt Mazur (https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/).
 
+It is accompanyed by four articles written for Elektor:
+* Part 1: Artificial Neurons https://www.elektormagazine.com/articles/neural-networks-part-1-artificial-neurons
+* Part 2: Logical Neurons https://www.elektormagazine.com/articles/neural-networks-part-2-logical-neurons
+* Part 3: Not yet available
+* Part 4: Not yet available
+
 The folders contain the following:
 
 * workexample - This contains a spreadsheet that performs all the calculations undertaken in the Matt Mazur article. It can be used to explore the math of backpropagation.

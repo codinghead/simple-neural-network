@@ -6,8 +6,8 @@ The code provided here is a simple multilayer perceptron (MLP) neural network im
 It is accompanyed by four articles written for Elektor:
 * Part 1: Artificial Neurons https://www.elektormagazine.com/articles/neural-networks-part-1-artificial-neurons
 * Part 2: Logical Neurons https://www.elektormagazine.com/articles/neural-networks-part-2-logical-neurons
-* Part 3: Not yet available
-* Part 4: Not yet available
+* Part 3: Not yet available https://www.elektormagazine.com/articles/neural-networks-part-3-practical-neurons/
+* Part 4: Not yet available https://www.elektormagazine.com/news/neural-networks-part-4-embedded-neurons
 
 The folders contain the following:
 
